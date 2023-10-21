@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Offline Expense Tracker 003</string>
+    <item name="listView" type="id" />
 </resources>
