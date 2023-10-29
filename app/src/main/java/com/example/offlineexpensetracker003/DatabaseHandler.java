@@ -12,18 +12,20 @@ import java.util.List;
 
 public class DatabaseHandler {
 
-    private static final String JDBC_URL = "jdbc:mysql://192.168.64.99:3306/transactions?useSSL=false&allowPublicKeyRetrieval=true";
-   // private static final String JDBC_URL = "jdbc:mysql://@localhost:3306/transactions?useSSL=false&allowPublicKeyRetrieval=true";
+    private static final String JDBC_URL = "jdbc:mysql://192.168.0.104:3306/transactions?useSSL=false&allowPublicKeyRetrieval=true";
+    // private static final String JDBC_URL = "jdbc:mysql://@localhost:3306/transactions?useSSL=false&allowPublicKeyRetrieval=true";
     private static final String DB_USERNAME = "Sammyrun";
     private static final String DB_PASSWORD = "Sammyrun";
 
     public interface DataExtractionListener {//listener to notify when the data extraction is complete
+
         void onDataExtracted(List<ExtractedData> extractedData);
     }
 
-    public static void insertMessageIntoDatabase(String message,String receivedTimestamp) {
-        new InsertMessageTask().execute(message,receivedTimestamp);
+    public static void insertMessageIntoDatabase(String message, String receivedTimestamp) {
+        new InsertMessageTask().execute(message, receivedTimestamp);
     }
+
     public void extractDataFromDatabase(DataExtractionListener listener) {
         new ExtractDataTask(listener).execute();
     }
@@ -56,14 +58,12 @@ public class DatabaseHandler {
                 statement.setString(1, message);
                 statement.setString(2, receivedTimestamp);
                 statement.executeUpdate();
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 if (e.getSQLState().equals("23000")) {
                     // Duplicate key violation
                     System.out.println("Duplicate message timestamp. Omitting the message.");
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 // Close the resources
@@ -82,6 +82,7 @@ public class DatabaseHandler {
             return null;
         }
     }
+
     public static class ExtractedData {
         private String amount;
         private String name;

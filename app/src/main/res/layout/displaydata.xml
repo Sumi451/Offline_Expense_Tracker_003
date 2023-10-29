@@ -10,4 +10,12 @@
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
         android:padding="16dp" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/filterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_launcher_foreground" />
 </RelativeLayout>
